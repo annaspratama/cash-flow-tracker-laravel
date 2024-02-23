@@ -33,23 +33,36 @@
                                             <h4 class="text-dark">Sign In</h4>
                                         </div>
                                         <div class="px-3 pb-3">
-                                            <form class="form-horizontal m-t-20 mb-0" action="index.html">
+                                            <form class="form-horizontal m-t-20 mb-0" method="POST" action="{{ route('auth-action-signin') }}">
+                                                @if (session()->has('errors'))
+                                                    <div class="alert alert-danger mt-3 alert-dismissible">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                        {{ session()->get('errors')->first('error') }}
+                                                    </div>
+                                                @endif
+                                                @if (session()->has('success'))
+                                                    <div class="alert alert-success mt-3 alert-dismissible">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                        {{ session()->get('success') }}
+                                                    </div>
+                                                @endif
+                                                @csrf
                                                 <div class="form-group row">
                                                     <div class="col-12">
-                                                        <input class="form-control" type="text" required="" placeholder="Username">
+                                                        <input class="form-control" name="email" type="email" required placeholder="Email">
                                                     </div>
                                                 </div>
                         
                                                 <div class="form-group row">
                                                     <div class="col-12">
-                                                        <input class="form-control" type="password" required="" placeholder="Password">
+                                                        <input class="form-control" name="password" type="password" required placeholder="Password">
                                                     </div>
                                                 </div>
                         
                                                 <div class="form-group row">
                                                     <div class="col-12">
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                            <input type="checkbox" name="remember-me" class="custom-control-input" id="customCheck1">
                                                             <label class="custom-control-label" for="customCheck1">Remember me</label>
                                                         </div>
                                                     </div>
@@ -57,16 +70,16 @@
                         
                                                 <div class="form-group text-right row m-t-20">
                                                     <div class="col-12">
-                                                        <button class="btn btn-primary btn-raised btn-block waves-effect waves-light" type="submit">Log In</button>
+                                                        <button class="btn btn-primary btn-raised btn-block waves-effect waves-light" type="submit"><i class="mdi mdi-login"></i> Sign In</button>
                                                     </div>
                                                 </div>
                         
                                                 <div class="form-group m-t-10 mb-0 row">
                                                     <div class="col-sm-7 m-t-20">
-                                                        <a href="{{ route('auth-forgot-password') }}" class="text-muted"><i class="mdi mdi-lock"></i> Forgot your password ?</a>
+                                                        <a href="{{ route('auth-forgot-password-page') }}" class="text-muted"><i class="mdi mdi-lock"></i> Forgot your password ?</a>
                                                     </div>
                                                     <div class="col-sm-5 m-t-20">
-                                                        <a href="{{ route('auth-register') }}" class="text-muted"><i class="mdi mdi-account-circle"></i> Create an account ?</a>
+                                                        <a href="{{ route('auth-register-page') }}" class="text-muted"><i class="mdi mdi-account-circle"></i> Create an account ?</a>
                                                     </div>
                                                 </div>
                                             </form>

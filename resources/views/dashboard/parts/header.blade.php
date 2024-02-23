@@ -143,8 +143,10 @@
                 <a class="dropdown-item" href="#">
                     <i class="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Lock screen</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
-                    <i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
+                <!-- Button trigger modal sign out -->
+                <button class="dropdown-item" data-toggle="modal" data-target="#action-signout">
+                    <i class="mdi mdi-logout m-r-5 text-muted"></i> Sign Out
+                </button>
             </div>
         </li>
     </ul>
@@ -158,5 +160,24 @@
     </ul>
 
     <div class="clearfix"></div>
-
 </nav>
+
+<!-- Modal sign out -->
+<div class="modal fade" id="action-signout" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Sign Out Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure want to sign out?
+        </div>
+        <div class="modal-footer">
+          <a type="button" href="{{ route('auth-action-signout') }}" class="btn btn-primary"><i class="mdi mdi-logout"></i> Sign Out</a>
+        </div>
+      </div>
+    </div>
+</div>

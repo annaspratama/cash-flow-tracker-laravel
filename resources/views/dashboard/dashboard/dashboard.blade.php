@@ -1,22 +1,12 @@
-@extends('dashboard.main')
+@extends('dashboard.main-dashboard')
 
 @section('title')
     Dashboard
 @endsection
 
-@section('content')
-    <div class="content">
-
-        <!-- Top Bar Start -->
-        <div class="topbar">
-
-            @include('dashboard.parts.header')
-
-        </div>
-        <!-- Top Bar End -->
-
+@section('main-content')
+        <!-- Page content Wrapper -->
         <div class="page-content-wrapper dashborad-v">
-
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
@@ -745,5 +735,4 @@
 
         </div>
         <!-- Page content Wrapper -->
-    </div>
 @endsection

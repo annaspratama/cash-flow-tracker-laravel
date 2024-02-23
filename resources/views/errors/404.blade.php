@@ -31,7 +31,7 @@
                                         <div class="ex-page-content text-center">
                                             <h1 class="">404!</h1>
                                             <h3 class="text-primary">Sorry, page not found</h3><br>
-                                            <a class="btn btn-raised btn-primary mb-5 waves-effect waves-light" href="{{ route('dashboard-dashboard') }}">Back to Dashboard</a>
+                                            <a class="btn btn-raised btn-primary mb-5 waves-effect waves-light" href="{{ route('dashboard-dashboard-page') }}">Back to Dashboard</a>
                                         </div>
                                     </div>
                                 </div>

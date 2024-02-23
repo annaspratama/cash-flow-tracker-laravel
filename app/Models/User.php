@@ -3,12 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Notifications\ForgotPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\RegistrationNotification;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -18,7 +22,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
     ];
@@ -42,4 +47,37 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Set user fullname.
+     * 
+     * @return string
+     */
+    public function getFullnameAttribute(): string
+    {
+        return $this->last_name ? "{$this->first_name} {$this->last_name}" : $this->first_name;
+    }
+
+    /**
+     * Send email for registration verification.
+     * 
+     * @return void
+     */
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(instance: new RegistrationNotification);
+    }
+
+    /**
+     * Send a password reset notification to the user.
+     * 
+     * @param string $token
+     * 
+     * @return void
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $url = url(path: '/recover-password', parameters: ['token' => $token]);
+        $this->notify(instance: new ForgotPasswordNotification(url: $url)); 
+    }
 }

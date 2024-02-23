@@ -33,31 +33,48 @@
                                             <h4 class="text-dark">Register</h4>
                                         </div>
                                         <div class="px-3 pb-3">
-                                            <form class="form-horizontal m-t-20 mb-0" action="index.html">
-                                                <div class="form-group row">
-                                                    <div class="col-12">
-                                                        <input class="form-control" type="email" required="" placeholder="Email">
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="form-group row">
-                                                    <div class="col-12">
-                                                        <input class="form-control" type="text" required="" placeholder="Username">
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="form-group row">
-                                                    <div class="col-12">
-                                                        <input class="form-control" type="password" required="" placeholder="Password">
-                                                    </div>
-                                                </div>
-                    
-                                                <div class="form-group row">
-                                                    <div class="col-12">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                            <label class="custom-control-label font-weight-normal" for="customCheck1">I accept <a href="#" class="text-muted">Terms and Conditions</a></label>
+                                            <form class="form-horizontal m-t-20 mb-0" method="POST" action="{{ route('auth-action-register') }}">
+                                                @if (session()->has('errors'))
+                                                    <div class="alert alert-danger mt-3 alert-dismissible">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-sm-12">
+                                                                {{ session()->get('errors')->first('email') }}
+                                                                {{ session()->get('errors')->first('first_name') }}
+                                                                {{ session()->get('errors')->first('password') }}
+                                                                {{ session()->get('errors')->first('g-recaptcha-response') }}
+                                                            </div>
                                                         </div>
+                                                    </div>
+                                                @endif
+                                                @csrf
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+                                                        <input class="form-control" type="email" name="email" required placeholder="Email">
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+                                                        <input class="form-control" type="text" name="first_name" required placeholder="First Name">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+                                                        <input class="form-control" type="text" name="last_name" placeholder="Last Name">
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+                                                        <input class="form-control" type="password" name="password" required placeholder="Password">
+                                                    </div>
+                                                </div>
+                    
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+                                                        {!! NoCaptcha::display() !!}
                                                     </div>
                                                 </div>
                     
@@ -69,7 +86,7 @@
                     
                                                 <div class="form-group m-t-10 mb-0 row">
                                                     <div class="col-12 m-t-20 text-center">
-                                                        <a href="{{ route('auth-sign-in') }}" class="text-muted">Already have account?</a>
+                                                        <a href="{{ route('auth-signin-page') }}" class="text-muted">Already have account?</a>
                                                     </div>
                                                 </div>
                                             </form>
@@ -85,5 +102,7 @@
 
         <!-- jQuery  -->
         <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <!-- Google Recaptcha -->
+        {!! NoCaptcha::renderJs() !!}
     </body>
 </html>

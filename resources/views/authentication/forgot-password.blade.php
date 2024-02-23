@@ -32,7 +32,21 @@
                                             <h4 class="text-dark">Forgot Password</h4>
                                         </div>
                                         <div class="px-3 pb-3">
-                                            <form class="form-horizontal m-t-20 mb-0" action="index.html">
+                                            <form class="form-horizontal m-t-20 mb-0" method="POST" action="{{ route('password.link.send') }}">
+                                                @if (session()->has('errors'))
+                                                    <div class="alert alert-danger mt-3 alert-dismissible">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                        {{ session()->get('errors')->first('email') }}
+                                                        {{ session()->get('errors')->first('g-recaptcha-response') }}
+                                                    </div>
+                                                @endif
+                                                @if (session()->has('status'))
+                                                    <div class="alert alert-success mt-3 alert-dismissible">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                        {{ session()->get('status') }}
+                                                    </div>
+                                                @endif
+                                                @csrf
                                                 <div class="alert alert-info mt-3 alert-dismissible">
                                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                                     Enter your <b>Email</b> and instructions will be sent to you!
@@ -40,7 +54,13 @@
                     
                                                 <div class="form-group">
                                                     <div class="col-xs-12">
-                                                        <input class="form-control" type="email" required="" placeholder="Email">
+                                                        <input class="form-control" type="email" name="email" required placeholder="Email">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="col-xs-12">
+                                                        {!! NoCaptcha::display() !!}
                                                     </div>
                                                 </div>
                     
@@ -62,5 +82,7 @@
 
         <!-- jQuery  -->
         <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <!-- Google Recaptcha -->
+        {!! NoCaptcha::renderJs() !!}
     </body>
 </html>
