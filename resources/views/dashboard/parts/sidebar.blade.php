@@ -2,10 +2,10 @@
 
     <div id="sidebar-menu">
         <ul>
-            <li class="menu-title">Main</li>
+            <li class="menu-title">Dashboard</li>
 
             <li>
-                <a href="index.html" class="waves-effect">
+                <a href="{{ route('dashboard-dashboard-page') }}" class="waves-effect">
                     <i class="mdi mdi-view-dashboard"></i>
                     <span> Dashboard
                         <span class="badge badge-pill badge-primary float-right">7</span>
@@ -13,76 +13,28 @@
                 </a>
             </li>
 
-            <li>
-                <a href="calendar.html" class="waves-effect">
-                    <i class="mdi mdi-calendar-clock"></i>
-                    <span> Calendar </span>
-                </a>
-            </li>
-            <li class="menu-title">Components</li>
+            <li class="menu-title">Main</li>
 
             <li class="has_sub">
                 <a href="javascript:void(0);" class="waves-effect">
-                    <i class="mdi mdi-animation"></i>
-                    <span> UI Elements </span>
+                    <i class="mdi mdi-account-multiple"></i>
+                    <span> Users </span>
                     <span class="float-right">
                         <i class="mdi mdi-chevron-right"></i>
                     </span>
                 </a>
                 <ul class="list-unstyled">
                     <li>
-                        <a href="ui-badge.html">Badge</a>
+                        <a href="ui-badge.html">Your Profile</a>
                     </li>
                     <li>
-                        <a href="ui-alertify.html">Alertify</a>
+                        <a href="ui-alertify.html">Change Password</a>
                     </li>
                     <li>
-                        <a href="ui-buttons.html">Buttons</a>
+                        <a href="ui-buttons.html">Manage Roles</a>
                     </li>
                     <li>
-                        <a href="ui-carousel.html">Carousel</a>
-                    </li>
-                    <li>
-                        <a href="ui-dropdowns.html">Dropdowns</a>
-                    </li>
-                    <li>
-                        <a href="ui-typography.html">Typography</a>
-                    </li>
-                    <li>
-                        <a href="ui-cards.html">Cards</a>
-                    </li>
-                    <li>
-                        <a href="ui-grid.html">Grid</a>
-                    </li>
-                    <li>
-                        <a href="ui-rating.html">Rating</a>
-                    </li>
-                    <li>
-                        <a href="ui-tabs-accordions.html">Tabs &amp; Accordions</a>
-                    </li>
-                    <li>
-                        <a href="ui-modals.html">Modals</a>
-                    </li>
-                    <li>
-                        <a href="ui-images.html">Images</a>
-                    </li>
-                    <li>
-                        <a href="ui-alerts.html">Alerts</a>
-                    </li>
-                    <li>
-                        <a href="ui-progressbars.html">Progress Bars</a>
-                    </li>
-                    <li>
-                        <a href="ui-pagination.html">Pagination</a>
-                    </li>
-                    <li>
-                        <a href="ui-rangeslider.html">Range Slider</a>
-                    </li>
-                    <li>
-                        <a href="ui-navs.html">Navs</a>
-                    </li>
-                    <li>
-                        <a href="ui-popover-tooltips.html">Popover & Tooltips</a>
+                        <a href="ui-buttons.html">Manage Users</a>
                     </li>
                 </ul>
             </li>

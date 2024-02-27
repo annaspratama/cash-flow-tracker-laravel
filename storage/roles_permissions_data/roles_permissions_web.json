@@ -1,0 +1,23 @@
+{
+    "Super-Administrator": [
+        "dashboard-read",
+        "user-create",
+        "user-read",
+        "user-update",
+        "user-delete",
+        "role-create",
+        "role-read",
+        "role-update",
+        "role-delete"
+    ],
+    "Administrator": [
+        "dashboard-read",
+        "user-create",
+        "user-read",
+        "user-update",
+        "user-delete"
+    ],
+    "User": [
+        "dashboard-read"
+    ]
+}
