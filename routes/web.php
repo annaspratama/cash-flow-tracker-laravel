@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\UserController as DashboardUserController;
 use App\Http\Controllers\Dashboard\VerificationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,11 @@ use Illuminate\Support\Facades\Auth;
 
 // Dashboard
 Route::middleware(['auth', 'verified'])->group(callback: function () {
+    // Dashboard
     Route::get(uri: '/', action: [DashboardController::class, 'dashboardPage'])->name(name: 'dashboard-dashboard-page');
+
+    // Users
+    Route::get(uri: '/roles', action: [DashboardUserController::class, 'rolesPage'])->name(name: 'dashboard-roles-page');
 });
 
 // Dashboard needs verification

@@ -30,12 +30,16 @@
                     <li>
                         <a href="ui-alertify.html">Change Password</a>
                     </li>
-                    <li>
-                        <a href="ui-buttons.html">Manage Roles</a>
-                    </li>
-                    <li>
-                        <a href="ui-buttons.html">Manage Users</a>
-                    </li>
+                    @can('role-read', 'web')
+                        <li>
+                            <a href="{{ route('dashboard-roles-page') }}">Manage Roles</a>
+                        </li>
+                    @endcan
+                    @can('user-read', 'web')
+                        <li>
+                            <a href="ui-buttons.html">Manage Users</a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
             <li class="has_sub">

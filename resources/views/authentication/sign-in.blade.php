@@ -70,7 +70,7 @@
                         
                                                 <div class="form-group text-right row m-t-20">
                                                     <div class="col-12">
-                                                        <button class="btn btn-primary btn-raised btn-block waves-effect waves-light" type="submit"><i class="mdi mdi-login"></i> Sign In</button>
+                                                        <button id="signInBtn" class="btn btn-primary btn-raised btn-block waves-effect waves-light" type="submit"><i class="mdi mdi-login"></i> Sign In</button>
                                                     </div>
                                                 </div>
                         
@@ -95,5 +95,19 @@
 
         <!-- jQuery  -->
         <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/axios.min.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                $("#signInBtn").click(function() {
+                    getCsrfCookie();
+                });
+            });
+
+            function getCsrfCookie() {
+                axios.get("{{ url('/sanctum/csrf-cookie') }}").then(response => {
+                    // do nothing
+                });   
+            }
+        </script>
     </body>
 </html>

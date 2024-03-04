@@ -1,6 +1,5 @@
 {
     "Super-Administrator": [
-        "dashboard-read",
         "user-create",
         "user-read",
         "user-update",
@@ -8,16 +7,26 @@
         "role-create",
         "role-read",
         "role-update",
-        "role-delete"
+        "role-delete",
+        "transaction-create",
+        "transaction-read",
+        "transaction-update",
+        "transaction-delete"
     ],
     "Administrator": [
-        "dashboard-read",
         "user-create",
         "user-read",
         "user-update",
-        "user-delete"
+        "user-delete",
+        "transaction-read",
+        "transaction-read",
+        "transaction-update",
+        "transaction-delete"
     ],
     "User": [
-        "dashboard-read"
+        "transaction-read",
+        "transaction-read",
+        "transaction-update",
+        "transaction-delete"
     ]
 }

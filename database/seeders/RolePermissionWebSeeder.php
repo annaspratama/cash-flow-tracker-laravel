@@ -34,13 +34,17 @@ class RolePermissionWebSeeder extends Seeder
             if (!$existingPermission) { Permission::create(attributes: ['name' => $value]); }
         }
 
+        // delete permission which not in new permissions
+        Permission::query()->where(column: 'guard_name', operator: '=', value: "web")
+            ->whereNotIn('name', $dataSuperAdmin)->delete();
+
         // create role super administrator
         $roleSuperAdmin = Role::where(column: 'name', operator: '=', value: "Super-Administrator")->first();
 
         if (!$roleSuperAdmin) { $roleSuperAdmin = Role::create(attributes: ['name' => "Super-Administrator"]); }
 
         // sync permissions to role super administrator
-        $permissionsSuperAdmin = Permission::pluck(column: 'id', key: 'id');
+        $permissionsSuperAdmin = Permission::where('guard_name', "web")->pluck(column: 'id', key: 'id');
         $roleSuperAdmin->syncPermissions($permissionsSuperAdmin);
 
         // create super administrator account and assign role to it
@@ -68,7 +72,7 @@ class RolePermissionWebSeeder extends Seeder
         }
 
         // sync permissions to role administrator
-        $permissionsAdmin = Permission::query()->whereIn('name', $data['Administrator'])->pluck(column: 'id', key: 'id');
+        $permissionsAdmin = Permission::whereIn('name', $data['Administrator'])->pluck(column: 'id', key: 'id');
         $roleAdmin->syncPermissions($permissionsAdmin);
 
         // create role user and assign permissions to it

@@ -12,6 +12,9 @@
 
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
 
+        <!-- Boostrap -->
+        {{-- <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css"> --}}
+
         <!--Morris Chart CSS -->
         <link rel="stylesheet" href="{{ asset('plugins/fullcalendar/vanillaCalendar.css') }}"/>
         <link rel="stylesheet" href="{{ asset('plugins/jvectormap/jquery-jvectormap-2.0.2.css') }}">
@@ -24,8 +27,14 @@
 
         <link rel="stylesheet" href="{{ asset('plugins/animate/animate.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('css/bootstrap-material-design.min.css') }}" type="text/css">
+
+        <!-- Custom CSS -->
         <link rel="stylesheet" href="{{ asset('css/icons.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+
+        <!-- Specific CSS -->
+        @section('css')
+        @show
 
     </head>
 
@@ -98,10 +107,16 @@
         <script src="{{ asset('plugins/metro/MetroJs.min.js') }}"></script>
         <script src="{{ asset('plugins/raphael/raphael.min.js') }}"></script>
         <script src="{{ asset('plugins/morris/morris.min.js') }}"></script>
-        <script src="{{ asset('pages/dashboard.js') }}"></script>
+
+        <!-- Boostrap JS -->
+        {{-- <script src="{{ asset('js/bootstrap.min.js') }}"></script> --}}
 
         <!-- App js -->
         <script src="{{ asset('js/app.js') }}"></script>
+
+        <!-- Specific JS -->
+        @section('js')
+        @show
        
     </body>
 
