@@ -5,6 +5,7 @@
 @endsection
 
 @section('css')
+    <!-- Toast Notification CSS -->
     <link href="{{ asset('css/theme-bootstrap.min.css') }}" rel="stylesheet">
 @endsection
 
@@ -38,8 +39,9 @@
                                         <td>[[ value.name ]]</td>
                                         <td width="20%">[[ value.guard_name ]]</td>
                                         <td width="25%">
-                                            <button href="#" type="button" @click="showModal('create-update', [[ value.id ]])" class="btn btn-sm btn-outline-success"><i class="mdi mdi-tooltip-edit"></i> Update</button>
-                                            <button href="#" type="button" @click="showModal('delete', [[ value.id ]])" class="btn btn-sm btn-outline-danger ml-2"><i class="mdi mdi-delete"></i> Delete</button>
+                                            <a type="button" :href="'roles/'+ value.id +'/permissions'" class="btn btn-sm btn-outline-success"><i class="mdi mdi-account-key"></i> Permissions</a>
+                                            <button type="button" @click="showModal('create-update', [[ value.id ]])" class="btn btn-sm btn-outline-primary ml-2"><i class="mdi mdi-tooltip-edit"></i> Update</button>
+                                            <button type="button" @click="showModal('delete', [[ value.id ]])" class="btn btn-sm btn-outline-danger ml-2"><i class="mdi mdi-delete"></i> Delete</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -113,16 +115,14 @@
 @endsection
 
 @section('js')
+    <!-- Vue JS -->
     <script src="{{ asset('js/vue-3.4.20.js') }}"></script>
+    <!-- Axios JS -->
     <script src="{{ asset('js/axios.min.js') }}"></script>
+    <!-- Toast Notification JS -->
     <script src="{{ asset('js/toast.min.js') }}"></script>
+    <!-- Custom Vue JS -->
     <script>
-        
-        // const token = "Bearer {{ auth()->user()->tokens[0]->token }}";
-        // axios.defaults.headers.common['Authorization'] = token;
-        // axios.defaults.withCredentials = true;
-        // axios.defaults.withXSRFToken = true;
-
         const app = Vue.createApp({
             delimiters: ['[[', ']]'],
             data() {
@@ -233,6 +233,5 @@
 
         app.use(VueToast.ToastPlugin)
         app.mount('#app')
-        
     </script>
 @endsection

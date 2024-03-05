@@ -24,7 +24,11 @@ Route::middleware(['auth', 'verified'])->group(callback: function () {
     Route::get(uri: '/', action: [DashboardController::class, 'dashboardPage'])->name(name: 'dashboard-dashboard-page');
 
     // Users
-    Route::get(uri: '/roles', action: [DashboardUserController::class, 'rolesPage'])->name(name: 'dashboard-roles-page');
+    Route::prefix('/roles')->group(callback: function () {
+        Route::get(uri: '', action: [DashboardUserController::class, 'rolesPage'])->name(name: 'dashboard-roles-page');
+        Route::get(uri: '/{roleId}/permissions', action: [DashboardUserController::class, 'permissionsPage'])
+            ->where(name: 'roleId', expression: '[0-9]+')->name(name: 'dashboard-permissions-page');
+    });
 });
 
 // Dashboard needs verification

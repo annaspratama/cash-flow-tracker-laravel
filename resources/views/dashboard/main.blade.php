@@ -108,9 +108,6 @@
         <script src="{{ asset('plugins/raphael/raphael.min.js') }}"></script>
         <script src="{{ asset('plugins/morris/morris.min.js') }}"></script>
 
-        <!-- Boostrap JS -->
-        {{-- <script src="{{ asset('js/bootstrap.min.js') }}"></script> --}}
-
         <!-- App js -->
         <script src="{{ asset('js/app.js') }}"></script>
 

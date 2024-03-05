@@ -17,4 +17,16 @@ class UserController extends Controller
     {
         return view(view: 'dashboard.dashboard.users.roles.roles');
     }
+
+    /**
+     * Display permissions page.
+     * 
+     * @param int $roleId
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function permissionsPage(int $roleId)
+    {
+        return view(view: 'dashboard.dashboard.users.roles.permissions', data: ['role_id' => $roleId]);
+    }
 }

@@ -3,22 +3,16 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PermissionCollection;
 use App\Http\Resources\RoleCollection;
 use App\Http\Resources\RoleResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    /**
-     * Control all role requests.
-     */
-    public function __construct() {
-        // 
-    }
-
     /**
      * Get roles data.
      * 
@@ -92,5 +86,49 @@ class RoleController extends Controller
         Role::find(id: $id)->delete();
 
         return new RoleCollection(resource: Role::all());
+    }
+
+    /**
+     * Get permissions by role.
+     * 
+     * @param Request $request
+     * @param int $roleId
+     * 
+     * @return PermissionCollection
+     */
+    public function permissions(Request $request, int $roleId): PermissionCollection
+    {
+        $permissions = Permission::where('guard_name', "web")->get();
+        $rolePermissions = Role::find(id: $roleId)->permissions;
+        $mixedPermissions = $permissions->merge(items: $rolePermissions);
+
+        return new PermissionCollection(resource: $mixedPermissions);
+    }
+
+    /**
+     * Update permission by role.
+     * 
+     * @param Request $request
+     * @param int $roleId
+     * 
+     * @return PermissionCollection
+     */
+    public function updatePermissions(Request $request, int $roleId): PermissionCollection
+    {
+        $permissions = $request->input();
+
+        $activePermissionIds = [];
+        foreach ($permissions as $key => $value) {
+            if ($value['checked']) { array_push($activePermissionIds, $value['id']); }
+        }
+
+        $role = Role::findById(id: $roleId);
+        $role->syncPermissions($activePermissionIds);
+
+        $permissions = Permission::where('guard_name', "web")->get();
+        $rolePermissions = Role::find(id: $roleId)->permissions;
+        $mixedPermissions = $permissions->merge(items: $rolePermissions);
+
+        return new PermissionCollection(resource: $mixedPermissions);
     }
 }

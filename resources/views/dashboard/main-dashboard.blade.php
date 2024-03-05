@@ -17,10 +17,21 @@
                             <div class="btn-group float-right">
                                 <ol class="breadcrumb hide-phone p-0 m-0">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard-dashboard-page') }}">Home</a></li>
-                                    <li class="breadcrumb-item active">@yield('title')</li>
+                                    @if ($__env->hasSection('sub-title'))
+                                        <li class="breadcrumb-item"><a href="@yield('route-title')">@yield('title')</a></li>
+                                        <li class="breadcrumb-item active">@yield('sub-title')</li>
+                                    @else
+                                        <li class="breadcrumb-item active">@yield('title')</li>
+                                    @endif
                                 </ol>
                             </div>
-                            <h4 class="page-title">@yield('title')</h4>
+                            <h4 class="page-title">
+                                @if ($__env->hasSection('sub-title'))
+                                    @yield('sub-title')
+                                @else
+                                    @yield('title')
+                                @endif
+                            </h4>
                         </div>
                     </div>
                     <div class="clearfix"></div>

@@ -15,13 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
+// API Sanctum
 Route::middleware('auth:sanctum')->prefix('/v1')->group(callback: function () {
     Route::controller(RoleController::class)->group(callback: function () {
-        Route::get(uri: '/roles', action: 'roles')->name(name: 'api-get-roles');
+        Route::prefix('/roles')->group(callback: function () {
+            Route::get(uri: '', action: 'roles')->name(name: 'api-get-roles');
+            Route::get(uri: '{roleId}/permissions', action: 'permissions')->name(name: 'api-get-permissions')
+                ->where(name: 'roleId', expression: '[0-9]+');
+        });
         Route::prefix('')->group(callback: function () {
             Route::post(uri: '/role', action: 'create')->name(name: 'api-create-roles');
             Route::get(uri: '/{id}/role', action: 'get')->name(name: 'api-get-role')->where(name: 'id', expression: '[0-9]+');
@@ -30,3 +31,7 @@ Route::middleware('auth:sanctum')->prefix('/v1')->group(callback: function () {
         });
     });
 });
+
+// API Web
+Route::middleware('auth:web')->put(uri: 'v1/roles/{roleId}/permissions', action: [RoleController::class, 'updatePermissions'])
+    ->name(name: 'api-update-permissions')->where(name: 'roleId', expression: '[0-9]+');
