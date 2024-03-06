@@ -81,11 +81,12 @@ class UserServiceImplement implements UserService
 
     public function updatePassword(string $email, string $newPassword, string $retypePassword): string
     {
-        $user = User::query()->where(column: 'email', operator: '=', value: $email)->first();
+        $user = User::where(column: 'email', operator: '=', value: $email)->first();
 
         if ($user) {
             if ($newPassword == $retypePassword) {
                 $user->password = Hash::make(value: $newPassword);
+                $user->save();
                 return "Success: Password has been changed.";
             } else {
                 return "Fail: New password and retype password are not same.";

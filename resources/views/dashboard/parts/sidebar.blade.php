@@ -28,7 +28,7 @@
                         <a href="ui-badge.html">Your Profile</a>
                     </li>
                     <li>
-                        <a href="ui-alertify.html">Change Password</a>
+                        <a href="{{ route('dashboard-change-password-page') }}">Change Password</a>
                     </li>
                     @can('role-read', 'web')
                         <li>

@@ -45,11 +45,12 @@
                     </div>
                 @endif
 
-                <!-- Vue Error Flash Message -->
-                {{-- <div class="alert alert-danger mt-3 alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    Lorem ipsum dolor sit amet.
-                </div> --}}
+                @if (session()->has('errors'))
+                    <div class="alert alert-danger mt-3 alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        {{ session()->get('errors')->first() }}
+                    </div>
+                @endif
 
                 <!-- Success Flash Message -->
                 @if (session()->has('success'))
@@ -58,12 +59,6 @@
                         {{ session()->get('success') }}
                     </div>
                 @endif
-
-                <!-- Vue Success Flash Message -->
-                {{-- <div class="alert alert-success mt-3 alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    Lorem ipsum dolor sit amet.
-                </div> --}}
 
                 <!-- end page title end breadcrumb -->
 

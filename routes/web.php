@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\VerificationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,10 @@ Route::middleware(['auth', 'verified'])->group(callback: function () {
         Route::get(uri: '', action: [DashboardUserController::class, 'rolesPage'])->name(name: 'dashboard-roles-page');
         Route::get(uri: '/{roleId}/permissions', action: [DashboardUserController::class, 'permissionsPage'])
             ->where(name: 'roleId', expression: '[0-9]+')->name(name: 'dashboard-permissions-page');
+    });
+    Route::prefix('/change-password')->group(callback: function () {
+        Route::get(uri: '', action: [DashboardUserController::class, 'changePasswordPage'])->name(name: 'dashboard-change-password-page');
+        Route::post(uri: '', action: [DashboardUserController::class, 'updatePassword'])->name(name: 'dashboard.update.password');
     });
 });
 
