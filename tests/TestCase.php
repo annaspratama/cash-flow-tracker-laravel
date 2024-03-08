@@ -13,6 +13,6 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
         
-        DB::delete(query: 'DELETE FROM users');
+        DB::delete(query: 'DELETE FROM users WHERE email <> "annaspratama@icloud.com"');
     }
 }

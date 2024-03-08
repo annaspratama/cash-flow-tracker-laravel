@@ -3,10 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
-class RegisterRequest extends FormRequest
+class UpdateAccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +22,9 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'unique:users', 'max:100'],
             'first_name' => ['required', 'max:50'],
             'last_name' => ['nullable', 'max:50'],
-            'password' => ['required', 'min:8', 'max:30'],
-            'g-recaptcha-response' => ['required']
+            'phone' => ['required', 'regex:/^[0-9]{11,13}$/', 'min:11', 'max:13'],
         ];
     }
 }

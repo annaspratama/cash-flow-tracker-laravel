@@ -27,7 +27,7 @@ class UserServiceTest extends TestCase
         $this->userService = $this->app->make(abstract: UserService::class);
         $this->firstName = "Annas";
         $this->lastName = "Pratama";
-        $this->email = "annaspratama@icloud.com";
+        $this->email = "annaspratama@outlook.com";
         $this->password = "Admin12&3";
     }
 
@@ -39,14 +39,35 @@ class UserServiceTest extends TestCase
     public function testRegister(): void
     {
         $credentials = [
-            'email' => "annaspratama@icloud.com",
+            'email' => "annaspratama@outlook.com",
             'password' => "Admin12&3",
             'first_name' => "Annas",
             'last_name' => "Pratama"
         ];
         $registeredUser = $this->userService->registerAccount(credentials: $credentials);
 
-        self::assertTrue(condition: $registeredUser);
+        self::assertIsNumeric(actual: $registeredUser);
+    }
+
+    /**
+     * Test for update user account.
+     * 
+     * @return void
+     */
+    public function testUpdateAccount(): void
+    {
+        $this->seed(class: UserSeeder::class);
+
+        $user = User::where(column: 'email', operator: '=', value: "annaspratama@outlook.com")->first();
+
+        $account = [
+            'first_name' => "Annas",
+            'last_name' => "Pratama",
+            'phone' => "082261064747"
+        ];
+        $updatedUser = $this->userService->updateAccount(userId: $user->id, account: $account);
+
+        self::assertTrue(condition: $updatedUser);
     }
 
     /**
@@ -58,7 +79,7 @@ class UserServiceTest extends TestCase
     {
         $this->seed(class: UserSeeder::class);
         $this->post(uri: '/tests/sign-in', data: [
-            'email' => "annaspratama@icloud.com",
+            'email' => "annaspratama@outlook.com",
             'password' =>  "Admin12&3"
         ])
             ->assertStatus(status: 200)
@@ -75,6 +96,10 @@ class UserServiceTest extends TestCase
     public function testSignOutSuccess(): void
     {
         $this->seed(class: UserSeeder::class);
+        $this->post(uri: '/tests/sign-in', data: [
+            'email' => "annaspratama@outlook.com",
+            'password' =>  "Admin12&3"
+        ]);
         $this->get(uri: '/tests/sign-out')
             ->assertStatus(status: 200)
             ->assertJson(value: [
@@ -90,7 +115,7 @@ class UserServiceTest extends TestCase
     public function testSendMailVerifyAccount(): void
     {
         $this->seed(class: UserSeeder::class);
-        $user = User::where(column: 'email', operator: '=', value: "annaspratama@icloud.com")->first();
+        $user = User::where(column: 'email', operator: '=', value: "annaspratama@outlook.com")->first();
         $this->userService->verifyAccount(email: $user->email);
         self::assertTrue(condition: true);
     }
@@ -103,7 +128,7 @@ class UserServiceTest extends TestCase
     public function testSendMailForgotPasswordAccount(): void
     {
         $this->seed(class: UserSeeder::class);
-        $user = User::where(column: 'email', operator: '=', value: "annaspratama@icloud.com")->first();
+        $user = User::where(column: 'email', operator: '=', value: "annaspratama@outlook.com")->first();
         $this->userService->forgotPassword(email: $user->email);
         self::assertTrue(condition: true);
     }
@@ -116,7 +141,7 @@ class UserServiceTest extends TestCase
     public function testUpdatePasswordAccountSuccess(): void
     {
         $this->seed(class: UserSeeder::class);
-        $user = User::where(column: 'email', operator: '=', value: "annaspratama@icloud.com")->first();
+        $user = User::where(column: 'email', operator: '=', value: "annaspratama@outlook.com")->first();
         $result = $this->userService->updatePassword(email: $user->email, newPassword: "Oke123Siap", retypePassword: "Oke123Siap");
         self::assertTrue(condition: str_contains(haystack: $result, needle: "Success"));
     }
@@ -129,7 +154,7 @@ class UserServiceTest extends TestCase
     public function testUpdatePasswordAccountFail(): void
     {
         $this->seed(class: UserSeeder::class);
-        $user = User::where(column: 'email', operator: '=', value: "annaspratama@icloud.com")->first();
+        $user = User::where(column: 'email', operator: '=', value: "annaspratama@outlook.com")->first();
         $result = $this->userService->updatePassword(email: $user->email, newPassword: "Oke123Siap", retypePassword: "Oke123Siapx");
         self::assertTrue(condition: str_contains(haystack: $result, needle: "Fail"));
     }

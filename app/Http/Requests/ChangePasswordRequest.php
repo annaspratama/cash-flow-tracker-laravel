@@ -35,7 +35,7 @@ class ChangePasswordRequest extends FormRequest
      * 
      * @param Validator $validator
      * 
-     * @throws Illuminate\Http\RedirectResponse
+     * @return Illuminate\Http\RedirectResponse
      */
     protected function failedValidation(Validator $validator): RedirectResponse
     {

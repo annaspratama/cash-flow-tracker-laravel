@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\RoleController;
+use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\UploadImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +30,10 @@ Route::middleware('auth:sanctum')->prefix('/v1')->group(callback: function () {
             Route::get(uri: '/{id}/role', action: 'get')->name(name: 'api-get-role')->where(name: 'id', expression: '[0-9]+');
             Route::put(uri: '/{id}/role', action: 'update')->name(name: 'api-update-role')->where(name: 'id', expression: '[0-9]+');
             Route::delete(uri: '/{id}/role', action: 'delete')->name(name: 'api-delete-role')->where(name: 'id', expression: '[0-9]+');
+        });
+        Route::prefix('/your-profile')->group(callback: function () {
+            Route::post(uri: '/upload-image', action: [UploadImageController::class, 'uploadProfileImage'])->name(name: 'api-upload-profile-image');
+            Route::post(uri: '/update', action: [UserController::class, 'update'])->name(name: 'api-profile-update');
         });
     });
 });

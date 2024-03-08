@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController as DashboardUserController;
 use App\Http\Controllers\Dashboard\VerificationController;
+use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,9 @@ Route::middleware(['auth', 'verified'])->group(callback: function () {
         Route::get(uri: '', action: [DashboardUserController::class, 'changePasswordPage'])->name(name: 'dashboard-change-password-page');
         Route::post(uri: '', action: [DashboardUserController::class, 'updatePassword'])->name(name: 'dashboard.update.password');
     });
+    Route::prefix('/your-profile')->group(callback: function () {
+        Route::get(uri: '', action: [DashboardUserController::class, 'accountProfilePage'])->name(name: 'dashboard-account-profile-page');
+    });
 });
 
 // Dashboard needs verification
@@ -64,7 +68,10 @@ Route::controller(UserController::class)->group(callback: function () {
 });
 
 // Support test case for user
-Route::controller(UserController::class)->prefix('tests')->group(function () {
-    Route::post(uri: '/sign-in', action: 'testSignIn');
-    Route::get(uri: '/sign-out', action: 'testSignOut');
+Route::prefix('tests')->group(function () {
+    Route::controller(UserController::class)->group(callback: function () {
+        Route::post(uri: '/sign-in', action: 'testSignIn');
+        Route::get(uri: '/sign-out', action: 'testSignOut');
+    });
+    Route::post(uri: '/upload-image', action: [UploadImageController::class, 'testUploadImage']);
 });

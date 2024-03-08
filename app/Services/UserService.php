@@ -19,9 +19,19 @@ interface UserService
      * 
      * @param array $credentials
      * 
+     * @return int
+     */
+    public function registerAccount (array $credentials): int;
+
+    /**
+     * Update an existing user account then return bool
+     * 
+     * @param int $userId
+     * @param array $account
+     * 
      * @return bool
      */
-    public function registerAccount (array $credentials): bool;
+    public function updateAccount (int $userId, array $account): bool;
 
     /**
      * Verify new user account using email.

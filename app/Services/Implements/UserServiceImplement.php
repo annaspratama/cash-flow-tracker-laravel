@@ -8,13 +8,12 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\SignInRequest;
-use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\PersonalAccessToken;
 use Spatie\Permission\Models\Role;
 
 class UserServiceImplement implements UserService
 {
-    public function registerAccount(array $credentials): bool
+    public function registerAccount(array $credentials): int
     {
         $user = new User(attributes: $credentials);
         $user->password = Hash::make(value: $credentials['password']);
@@ -29,6 +28,16 @@ class UserServiceImplement implements UserService
         }
 
         return $data;
+    }
+
+    public function updateAccount(int $userId, array $account): bool
+    {
+        $existAccount = User::find(id: $userId);
+        $result = false;
+
+        if ($existAccount) { $result = $existAccount->update(attributes: $account); }
+
+        return $result;
     }
 
     public function verifyAccount(string $email): void

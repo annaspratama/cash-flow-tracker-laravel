@@ -25,7 +25,7 @@
                 </a>
                 <ul class="list-unstyled">
                     <li>
-                        <a href="ui-badge.html">Your Profile</a>
+                        <a href="{{ route('dashboard-account-profile-page') }}">Your Profile</a>
                     </li>
                     <li>
                         <a href="{{ route('dashboard-change-password-page') }}">Change Password</a>

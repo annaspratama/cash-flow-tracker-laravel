@@ -24,9 +24,9 @@ class UserController extends Controller
     public function __construct(UserService $userService)
     {
         $this->middleware('guest')->except(methods: [
-            'signOut',
+            'signOut', 'testSignOut'
         ]);
-        $this->middleware('auth')->only(methods: 'signOut');
+        $this->middleware('auth')->only(methods: ['signOut', 'testSignOut']);
         $this->userService = $userService;
     }
 
@@ -122,7 +122,7 @@ class UserController extends Controller
      * @param Request $request
      * @return bool
      */
-    public function testSignIn (SignInRequest $request): JsonResponse
+    public function testSignIn(SignInRequest $request): JsonResponse
     {
         $credentials = $request->validated();
         
@@ -137,7 +137,7 @@ class UserController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function testSignOut (Request $request): JsonResponse
+    public function testSignOut(Request $request): JsonResponse
     {
         return response()->json(data: [
             'data' => $this->userService->signOut(request: $request)

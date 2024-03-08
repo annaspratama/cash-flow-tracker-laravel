@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangePasswordRequest;
+use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -22,9 +23,9 @@ class UserController extends Controller
     /**
      * Display roles page.
      * 
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
-    public function rolesPage()
+    public function rolesPage(): View
     {
         return view(view: 'dashboard.dashboard.users.roles.roles');
     }
@@ -34,9 +35,9 @@ class UserController extends Controller
      * 
      * @param int $roleId
      * 
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
-    public function permissionsPage(int $roleId)
+    public function permissionsPage(int $roleId): View
     {
         return view(view: 'dashboard.dashboard.users.roles.permissions', data: ['role_id' => $roleId]);
     }
@@ -44,9 +45,9 @@ class UserController extends Controller
     /**
      * Display change password page.
      * 
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
-    public function changePasswordPage()
+    public function changePasswordPage(): View
     {
         return view(view: 'dashboard.dashboard.users.change-password');
     }
@@ -77,5 +78,18 @@ class UserController extends Controller
         }
 
         return $result;
+    }
+
+    /**
+     * Display account profile page.
+     * 
+     * @param Request $request
+     * 
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function accountProfilePage(Request $request): View
+    {
+        $user = User::find(id: $request->user()->id);
+        return view(view: 'dashboard.dashboard.users.your-profile', data: ['user' => $user]);
     }
 }

@@ -171,6 +171,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         App\Providers\UserServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        App\Providers\UplaodImageServiceProvider::class,
     ])->toArray(),
 
     /*
