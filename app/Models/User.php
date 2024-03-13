@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\RegistrationNotification;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -56,6 +57,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getFullnameAttribute(): string
     {
         return $this->last_name ? "{$this->first_name} {$this->last_name}" : $this->first_name;
+    }
+
+    /**
+     * Check signed in user.
+     * 
+     * @return bool
+     */
+    public function getIsSignedInAttribute(): bool
+    {
+        if ($this->web_api_token) { return true; }
+        else { return false; }
     }
 
     /**

@@ -37,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(callback: function () {
     });
     Route::prefix('/your-profile')->group(callback: function () {
         Route::get(uri: '', action: [DashboardUserController::class, 'accountProfilePage'])->name(name: 'dashboard-account-profile-page');
+        Route::get(uri: '/users', action: [DashboardUserController::class, 'usersPage'])->name(name: 'dashboard-users-page');
     });
 });
 

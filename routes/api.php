@@ -35,6 +35,9 @@ Route::middleware('auth:sanctum')->prefix('/v1')->group(callback: function () {
             Route::post(uri: '/upload-image', action: [UploadImageController::class, 'uploadProfileImage'])->name(name: 'api-upload-profile-image');
             Route::post(uri: '/update', action: [UserController::class, 'update'])->name(name: 'api-profile-update');
         });
+        Route::prefix('/users')->group(callback: function () {
+            Route::get(uri: '/table', action: [UserController::class, 'usersTable'])->name(name: 'api-users-table');
+        });
     });
 });
 

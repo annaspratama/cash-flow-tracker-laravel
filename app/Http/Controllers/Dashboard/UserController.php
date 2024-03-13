@@ -92,4 +92,16 @@ class UserController extends Controller
         $user = User::find(id: $request->user()->id);
         return view(view: 'dashboard.dashboard.users.your-profile', data: ['user' => $user]);
     }
+
+    /**
+     * Display users page.
+     * 
+     * @param Request $request
+     * 
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function usersPage(Request $request): View
+    {
+        return view(view: 'dashboard.dashboard.users.users.users');
+    }
 }

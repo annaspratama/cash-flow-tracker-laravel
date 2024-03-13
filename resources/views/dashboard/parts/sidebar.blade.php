@@ -37,7 +37,7 @@
                     @endcan
                     @can('user-read', 'web')
                         <li>
-                            <a href="ui-buttons.html">Manage Users</a>
+                            <a href="{{ route('dashboard-users-page') }}">Manage Users</a>
                         </li>
                     @endcan
                 </ul>

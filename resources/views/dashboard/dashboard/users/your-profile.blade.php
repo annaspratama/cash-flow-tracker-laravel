@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('plugins/dropify/css/dropify.min.css') }}">
+    <link href="{{ asset('plugins/dropify/css/dropify.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/theme-bootstrap.min.css') }}" rel="stylesheet">
 @endsection
 

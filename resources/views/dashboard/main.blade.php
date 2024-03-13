@@ -12,6 +12,9 @@
 
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
 
+        <!-- Vite CSS -->
+        {{-- @vite("resources/css/app.css") --}}
+
         <!-- Boostrap -->
         {{-- <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css"> --}}
 
@@ -107,6 +110,9 @@
         <script src="{{ asset('plugins/metro/MetroJs.min.js') }}"></script>
         <script src="{{ asset('plugins/raphael/raphael.min.js') }}"></script>
         <script src="{{ asset('plugins/morris/morris.min.js') }}"></script>
+
+        <!-- Vite JS -->
+        {{-- @vite("resources/js/app.js") --}}
 
         <!-- App js -->
         <script src="{{ asset('js/app.js') }}"></script>
