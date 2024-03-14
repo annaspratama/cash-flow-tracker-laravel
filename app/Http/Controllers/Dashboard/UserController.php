@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -103,5 +104,20 @@ class UserController extends Controller
     public function usersPage(Request $request): View
     {
         return view(view: 'dashboard.dashboard.users.users.users');
+    }
+
+    /**
+     * Delete user data.
+     * 
+     * @param Request $request
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $id = $request->input(key: 'id');
+        User::find(id: $id)->delete();
+
+        return redirect()->to(path: route(name: 'dashboard-users-page'))->withSuccess("Your data deleted.");
     }
 }

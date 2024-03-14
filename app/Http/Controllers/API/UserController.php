@@ -51,6 +51,8 @@ class UserController extends Controller
     public function usersTable(Request $request): UserTableCollection
     {
         $search = $request->input(key: 'search', default: "");
+        $sort = $request->input(key: 'sort', default: "");
+        $order = $request->input(key: 'order', default: "");
         $offset = $request->input(key: 'offset', default: 0);
         $limit = $request->input(key: 'limit', default: 0);
 
@@ -63,6 +65,23 @@ class UserController extends Controller
                 ->orWhere(column: 'last_name', operator: 'LIKE', value: "%{$search}%")
                 ->orWhere(column: 'email', operator: 'LIKE', value: "%{$search}%")
                 ->orWhere(column: 'phone', operator: 'LIKE', value: "%{$search}%");
+            // $users = $users->where(
+            //     ['id', 'LIKE', "%{$search}%"],
+            //     ['first_name', 'LIKE', "%{$search}%"],
+            //     ['last_name', 'LIKE', "%{$search}%"],
+            //     ['email', 'LIKE', "%{$search}%"],
+            //     ['phone', 'LIKE', "%{$search}%"],
+            // );
+        }
+
+        if ($sort && $order) {
+            if ($search) { $users = $users->orderBy($sort, $order); } else {
+                if ($order == 'asc') {
+                    $users = $users->sortBy($sort);
+                } else if ($order == 'desc') {
+                    $users = $users->sortByDesc($sort);
+                }
+            }
         }
 
         $users = $users->skip($offset)->take($limit);

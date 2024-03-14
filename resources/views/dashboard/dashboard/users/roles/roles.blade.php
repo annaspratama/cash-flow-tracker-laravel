@@ -31,7 +31,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Guard Name</th>
-                                        <th>Action</th>
+                                        <th>Operation</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,9 +39,15 @@
                                         <td>[[ value.name ]]</td>
                                         <td width="20%">[[ value.guard_name ]]</td>
                                         <td width="25%">
-                                            <a type="button" :href="'roles/'+ value.id +'/permissions'" class="btn btn-sm btn-outline-success"><i class="mdi mdi-account-key"></i> Permissions</a>
-                                            <button type="button" @click="showModal('create-update', [[ value.id ]])" class="btn btn-sm btn-outline-primary ml-2"><i class="mdi mdi-tooltip-edit"></i> Update</button>
-                                            <button type="button" @click="showModal('delete', [[ value.id ]])" class="btn btn-sm btn-outline-danger ml-2"><i class="mdi mdi-delete"></i> Delete</button>
+                                            @can('role-create', 'web')
+                                                <a type="button" :href="'roles/'+ value.id +'/permissions'" class="btn btn-sm btn-outline-success"><i class="mdi mdi-account-key"></i> Permissions</a>
+                                            @endcan
+                                            @can('role-update', 'web')
+                                                <button type="button" @click="showModal('create-update', [[ value.id ]])" class="btn btn-sm btn-outline-primary ml-2"><i class="mdi mdi-tooltip-edit"></i> Update</button>
+                                            @endcan
+                                            @can('role-delete', 'web')
+                                                <button type="button" @click="showModal('delete', [[ value.id ]])" class="btn btn-sm btn-outline-danger ml-2"><i class="mdi mdi-delete"></i> Delete</button>
+                                            @endcan
                                         </td>
                                     </tr>
                                 </tbody>

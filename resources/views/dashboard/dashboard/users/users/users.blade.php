@@ -38,13 +38,17 @@
                                     <thead>
                                         <tr class="text-center">
                                             <th data-field="num">Num</th>
-                                            <th data-field="id">ID</th>
-                                            <th data-field="fullname">Fullname</th>
-                                            <th data-field="email">Email</th>
-                                            <th data-field="phone">Phone</th>
-                                            <th data-field="is_signed_in">Signed In</th>
-                                            <th data-field="verified">Verified At</th>
-                                            <th data-formatter="operateFormatter">Operation</th>
+                                            <th data-field="id" data-sortable="true">ID</th>
+                                            <th data-field="fullname" data-sortable="true">Fullname</th>
+                                            <th data-field="email" data-sortable="true">Email</th>
+                                            <th data-field="phone" data-sortable="true">Phone</th>
+                                            <th data-field="is_signed_in" data-sortable="true">Signed In</th>
+                                            <th data-field="verified" data-sortable="true">Verified At</th>
+                                            <th
+                                                @can('user-delete', 'web')
+                                                    data-formatter="operateFormatter"
+                                                @endcan
+                                                >Operation</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -55,29 +59,50 @@
             </div>
         </div>
     </div>
-    <!-- Content End -->    
+    <!-- Content End -->
+
+    <!-- Modal delete -->
+    <div class="modal fade" id="delete-user-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="{{ route('dashboard-delete-user') }}" method="GET">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Exist User</h5>
+                    <button type="button" class="btn btn-raised btn-default mdi mdi-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="text-muted">Are you sure delete this user?</p>
+                                <input type="hidden" name="id" id="user-id">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-raised btn-danger"><i class="mdi mdi-delete"></i> Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal delete end -->
 @endsection
 
 @section('js')
     <!-- Bootstrap Table -->
     <script src="{{ asset('js/bootstrap-table.min.js') }}"></script>
-    <!-- Vue JS -->
-    {{-- <script src="{{ asset('js/vue-3.4.20.js') }}"></script> --}}
+    <!-- Axios JS -->
+    <script src="{{ asset('js/axios.min.js') }}"></script>
     <script>
+
         function operateFormatter(value, row, index) {
             return [
-            // '<div class="left">',
-            // '<a href="https://github.com/wenzhixin/' + value + '" target="_blank">' + value + '</a>',
-            // '</div>',
-            '<div class="right">',
-            '<a class="like" href="javascript:void(0)" title="Like">',
-            '<i class="fa fa-heart"></i>',
-            '</a>  ',
-            '<a class="remove" href="javascript:void(0)" title="Remove">',
-            '<i class="fa fa-trash"></i>',
-            '</a>',
-            '</div>'
+                '<button type="button" data-toggle="modal" data-target="#delete-user-modal" onclick="userSelected('+ row.id +')" class="btn btn-sm btn-outline-danger btn-delete-user"><i class="mdi mdi-delete"></i> Delete</button>',
             ].join('')
+        }
+
+        function userSelected(id) {
+            $('#user-id').val(id);
         }
     </script>
 @endsection
